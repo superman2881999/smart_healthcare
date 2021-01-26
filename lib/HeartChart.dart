@@ -14,9 +14,14 @@ class HeartChart extends StatefulWidget {
 class _HeartChartState extends State<HeartChart> {
   Map<DateTime, double> data = {};
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     setState(() {
       var timeStart = widget.dateTimeSelected.toString().split(" ");
+      print(timeStart[0]);
       for (int i = 0; i < widget.seriesList.length; i++) {
         if (widget.seriesList[i].time.toString().contains(timeStart[0])) {
           data[widget.seriesList[i].time] = widget.seriesList[i].bpm.toDouble();
@@ -25,7 +30,6 @@ class _HeartChartState extends State<HeartChart> {
         }
       }
     });
-
     return AnimatedLineChart(
       LineChart.fromDateTimeMaps([data], [Colors.white], ['Bpm'],
           tapTextFontWeight: FontWeight.w400),

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'HeartModel.dart';
 
@@ -6,15 +5,12 @@ class HeartRate extends StatefulWidget {
   HeartRate(
       {this.seriesList,
       this.dateTimeSelected,
-      this.bpmLessThanSnapshot,
-      this.bpmAverageSnapshot,
-      this.bpmHighThanSnapshot,this.heartCurrent});
+      this.heartCurrent,
+      this.temperatureCurrent});
   final List<HeartModel> seriesList;
   final String heartCurrent;
+  final String temperatureCurrent;
   final DateTime dateTimeSelected;
-  final double bpmLessThanSnapshot;
-  final double bpmAverageSnapshot;
-  final double bpmHighThanSnapshot;
   @override
   _HeartRateState createState() => _HeartRateState();
 }
@@ -56,7 +52,6 @@ class _HeartRateState extends State<HeartRate> {
 
   @override
   Widget build(BuildContext context) {
-
     setState(() {
       var timeStart = widget.dateTimeSelected.toString().split(" ");
       averageHeart = 0;
@@ -87,23 +82,43 @@ class _HeartRateState extends State<HeartRate> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.favorite, color: Colors.redAccent),
-                    SizedBox(
-                      width: 5,
+                    Row(
+                      children: [
+                        Icon(Icons.favorite, color: Colors.redAccent),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          widget.heartCurrent,
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Current Heart", style: TextStyle(fontSize: 12))
+                      ],
                     ),
-                    Text(
-                      widget.heartCurrent,
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    Row(
+                      children: [
+                        Text("Current Temp", style: TextStyle(fontSize: 12)),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          widget.temperatureCurrent,
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(Icons.ac_unit, color: Colors.blue),
+                      ],
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text("Current Heart",
-                        style: TextStyle(fontSize: 12))
                   ],
                 ),
               ),
@@ -126,7 +141,8 @@ class _HeartRateState extends State<HeartRate> {
                             children: [
                               Text(resultAverageHeart[0],
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.bold)),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)),
                               Text("Times/minutes",
                                   style: TextStyle(fontSize: 11)),
                             ],
@@ -146,7 +162,8 @@ class _HeartRateState extends State<HeartRate> {
                             children: [
                               Text(minHeart.round().toString(),
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.bold)),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)),
                               Text("Times/minutes",
                                   style: TextStyle(fontSize: 11)),
                             ],
@@ -166,7 +183,8 @@ class _HeartRateState extends State<HeartRate> {
                             children: [
                               Text(maxHeart.round().toString(),
                                   style: TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.bold)),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold)),
                               Text("Times/minutes",
                                   style: TextStyle(fontSize: 11)),
                             ],
